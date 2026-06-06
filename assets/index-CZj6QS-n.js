@@ -22,12 +22,17 @@ Error generating stack: `+e.message+`
 `+t:``)).length,i=r>140;return(0,f.jsxs)(`span`,{style:{fontSize:11,color:i?`#ef4444`:n.muted,fontWeight:i?600:400},children:[r,`/140`,i?` ⚠`:``]})}function w({current:e,T:t}){let n=[`入力`,`確認・編集`,`保存`];return(0,f.jsx)(`div`,{style:{display:`flex`,alignItems:`center`,marginBottom:20},children:n.map((r,i)=>(0,f.jsxs)(`div`,{style:{display:`flex`,alignItems:`center`,flex:+(i<n.length-1)},children:[(0,f.jsxs)(`div`,{style:{display:`flex`,flexDirection:`column`,alignItems:`center`,gap:4},children:[(0,f.jsx)(`div`,{style:{width:24,height:24,borderRadius:`50%`,display:`flex`,alignItems:`center`,justifyContent:`center`,fontSize:11,fontWeight:600,background:i<e?`#dcfce7`:i===e?t.btnPrimary:t.border,color:i<e?`#166534`:i===e?t.btnPrimaryText:t.muted},children:i<e?`✓`:i+1}),(0,f.jsx)(`span`,{style:{fontSize:10,color:i===e?t.text:t.muted,whiteSpace:`nowrap`},children:r})]}),i<n.length-1&&(0,f.jsx)(`div`,{style:{flex:1,height:1,background:i<e?`#bbf7d0`:t.border,margin:`0 6px`,marginBottom:18}})]},i))})}function T(){let[e,t]=(0,l.useState)(_),[n,r]=(0,l.useState)(`create`),[i,a]=(0,l.useState)(``),o=(0,l.useRef)(null),s=(0,l.useRef)(null),c=e.theme===`dark`?te:ee,[u,d]=(0,l.useState)(null),[p,T]=(0,l.useState)(null),[fe,pe]=(0,l.useState)(`common`),[me,he]=(0,l.useState)(``),[E,D]=(0,l.useState)(null),[ge,_e]=(0,l.useState)(!1),[ve,ye]=(0,l.useState)(0),[be,xe]=(0,l.useState)(``),[Se,Ce]=(0,l.useState)(!1),[we,Te]=(0,l.useState)([]),[Ee,De]=(0,l.useState)(``),[Oe,ke]=(0,l.useState)(``),[Ae,je]=(0,l.useState)(``),[Me,Ne]=(0,l.useState)(``),[Pe,Fe]=(0,l.useState)(``),[Ie,Le]=(0,l.useState)(!1),[Re,ze]=(0,l.useState)(!1),[Be,Ve]=(0,l.useState)(``),[He,Ue]=(0,l.useState)(`発信済み`),[We,Ge]=(0,l.useState)(``),[Ke,qe]=(0,l.useState)(``),[Je,Ye]=(0,l.useState)(``);(0,l.useEffect)(()=>{v(e)},[e]),(0,l.useEffect)(()=>{let e=localStorage.getItem(`raite_last_export`);e&&Date.now()-parseInt(e)>10080*60*1e3&&O(`週次バックアップの時期です。設定からエクスポートを！`)},[]);let O=e=>{a(e),o.current&&clearTimeout(o.current),o.current=setTimeout(()=>a(``),2500)},k=(e,n)=>{t(t=>{let r=JSON.parse(JSON.stringify(t)),i=e.split(`.`),a=r;for(let e=0;e<i.length-1;e++)a=a[i[e]];return a[i[i.length-1]]=n,r})},Xe=e=>navigator.clipboard.writeText(e).then(()=>O(`コピーしました`)),Ze=t=>{let n=e.brand,r=e.aiRoles,i={common:`共通`,claude:`Claude`,chappy:`チャッピー`,gemini:`Gemini`};return[`【RAIte共通定義】`,[n.mission&&`ミッション：${n.mission}`,n.vision&&`ビジョン：${n.vision}`,n.tone&&`トーン：${n.tone}`,n.forbidden&&`禁止：${n.forbidden}`].filter(Boolean).join(`
 `)||`（未設定）`,`フェーズ：${e.phase}`,r.common.content&&`\n【共通指示】\n${r.common.content}`,t!==`common`&&r[t].content&&`\n【${i[t]}への指示】\n${r[t].content}`,`\nあなたは${t===`common`?`RAIteのAIアシスタント`:i[t]}です。`].filter(Boolean).join(`
 `)},Qe=async()=>{if(!e.apiKey){O(`APIキーを設定してください`),r(`settings`);return}if(!be.trim()){O(`気づきを入力してください`);return}Ce(!0);let t=e.brand,n=[t.mission&&`ミッション：${t.mission}`,t.tone&&`トーン：${t.tone}`,t.forbidden&&`禁止：${t.forbidden}`].filter(Boolean).join(`
-`);try{let t=(await S(e.apiKey,`あなたはRAIteのコンテンツライターです。
+`),i=e.stocks.filter(e=>e.type===`発信済み`).slice(0,5),a=i.length>0?`
+【参考：過去の発信済み記事（文体・トーンの参考にしてください）】
+`+i.map((e,t)=>`--- 参考${t+1} ---\n${e.content}`).join(`
+
+`):``;try{let t=(await S(e.apiKey,`あなたはRAIteのコンテンツライターです。
 以下のブランド仕様に従い、気づきメモを記事ドラフトに変換してください。
 
 【ブランド仕様】
 ${n||`（未設定）`}
 フェーズ：${e.phase}
+${a}
 
 【記事化のルール】
 - 観察者視点で構造化する。断定しない。余白を残す。
